@@ -1,0 +1,23 @@
+{
+	"name": "GitRaw",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ToGitRaw",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "praveen6naik/Azure-ADF-Project-Pipeline/refs/heads/main/Raw_Data/Fact_Sales_2.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
