@@ -1,0 +1,15 @@
+{
+	"name": "dsrest",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lsrestapi",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "api/books?bibkeys=ISBN:0201558025,LCCN:93005405&format=json"
+		},
+		"schema": []
+	}
+}

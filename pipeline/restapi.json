@@ -1,0 +1,163 @@
+{
+	"name": "restapi",
+	"properties": {
+		"activities": [
+			{
+				"name": "get Responsse",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://openlibrary.org/api/books?bibkeys=ISBN:0201558025,LCCN:93005405&format=json"
+				}
+			},
+			{
+				"name": "getapidata",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "get Responsse",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['ISBN:0201558025']['bib_key']"
+								},
+								"sink": {
+									"path": "$['ISBN:0201558025']['bib_key']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ISBN:0201558025']['info_url']"
+								},
+								"sink": {
+									"path": "$['ISBN:0201558025']['info_url']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ISBN:0201558025']['preview']"
+								},
+								"sink": {
+									"path": "$['ISBN:0201558025']['preview']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ISBN:0201558025']['preview_url']"
+								},
+								"sink": {
+									"path": "$['ISBN:0201558025']['preview_url']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ISBN:0201558025']['thumbnail_url']"
+								},
+								"sink": {
+									"path": "$['ISBN:0201558025']['thumbnail_url']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LCCN:93005405']['bib_key']"
+								},
+								"sink": {
+									"path": "$['LCCN:93005405']['bib_key']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LCCN:93005405']['info_url']"
+								},
+								"sink": {
+									"path": "$['LCCN:93005405']['info_url']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LCCN:93005405']['preview']"
+								},
+								"sink": {
+									"path": "$['LCCN:93005405']['preview']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LCCN:93005405']['preview_url']"
+								},
+								"sink": {
+									"path": "$['LCCN:93005405']['preview_url']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LCCN:93005405']['thumbnail_url']"
+								},
+								"sink": {
+									"path": "$['LCCN:93005405']['thumbnail_url']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "dsrest",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "restapi",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

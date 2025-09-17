@@ -1,0 +1,20 @@
+{
+	"name": "restapi",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "linkedservicedatalake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "data.json",
+				"folderPath": "APIRest",
+				"fileSystem": "source"
+			}
+		},
+		"schema": {}
+	}
+}
